@@ -79,3 +79,9 @@
     background: #76abae;
   }
 }
+
+.logo-text {
+  background: -webkit-linear-gradient(16deg, #eeeeee, #76abae);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
