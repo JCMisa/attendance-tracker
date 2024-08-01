@@ -18,17 +18,17 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
+        border: "#222831",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: "#222831",
+        foreground: "#EEEEEE",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#76ABAE",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "#31363F",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
