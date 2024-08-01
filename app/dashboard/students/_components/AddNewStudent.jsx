@@ -18,7 +18,7 @@ import { LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 
-const AddNewStudent = () => {
+const AddNewStudent = ({ refreshData }) => {
     const {
         register,
         handleSubmit,
@@ -62,6 +62,7 @@ const AddNewStudent = () => {
                         Student added successfully
                     </p>
                 )
+                refreshData()
                 setLoading(false)
                 setOpen(false)
                 reset()

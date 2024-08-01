@@ -86,7 +86,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* .ag-theme-quartz {
+/* .ag-theme-quartz-dark {
   --ag-foreground-color: rgb(126, 46, 132);
   --ag-background-color: rgb(249, 245, 227);
   --ag-header-foreground-color: rgb(204, 245, 172);
@@ -96,4 +96,16 @@
 
   --ag-font-size: 17px;
   --ag-font-family: monospace;
+}
+
+.ag-theme-quartz-dark::-webkit-scrollbar {
+  width: 3px;
+}
+
+.ag-theme-quartz-dark::-webkit-scrollbar-track {
+  display: none;
+}
+
+.ag-theme-quartz-dark::-webkit-scrollbar-thumb {
+  background: #76abae;
 } */

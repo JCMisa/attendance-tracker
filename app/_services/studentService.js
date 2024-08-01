@@ -1,5 +1,6 @@
 import { db } from "@/utils/db"
 import { STUDENTS } from "@/utils/schema"
+import { eq } from "drizzle-orm"
 
 const addStudent = async (data) => {
     const result = await db.insert(STUDENTS).values({
@@ -16,7 +17,13 @@ const getAllStudents = async () => {
     return result
 }
 
+const deleteStudent = async (id) => {
+    const result = await db.delete(STUDENTS).where(eq(STUDENTS.id, id))
+    return result
+}
+
 export default {
     addStudent,
-    getAllStudents
+    getAllStudents,
+    deleteStudent
 }

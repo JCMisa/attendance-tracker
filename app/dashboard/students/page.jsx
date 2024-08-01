@@ -38,14 +38,14 @@ const Student = () => {
         <div className='p-7'>
             <h2 className='font-bold text-2xl flex justify-between items-center'>
                 Students
-                <AddNewStudent />
+                <AddNewStudent refreshData={() => getAllStudents()} />
             </h2>
 
             <div className='p-5 shadow-md rounded-lg max-w-52 flex items-center justify-center my-5 min-h-20 bg-secondary'>
                 Total Students: {studentsList && studentsList?.length}
             </div>
 
-            <StudentListTable studentsList={studentsList} />
+            <StudentListTable studentsList={studentsList} refreshData={() => getAllStudents()} />
         </div>
     )
 }
