@@ -34,7 +34,7 @@ const ButtomNav = () => {
     const path = usePathname();
 
     return (
-        <div className='shadow-lg min-h-20 border-t'>
+        <div className='shadow-lg min-h-20 border-t bg-dark'>
             <div className="flex gap-10 md:hidden justify-center items-center text-center">
                 {menuList.map((menu, index) => (
                     <Link href={menu.path} key={menu.id || index}>

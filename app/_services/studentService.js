@@ -11,7 +11,12 @@ const addStudent = async (data) => {
     return result
 }
 
+const getAllStudents = async () => {
+    const result = await db.select().from(STUDENTS)
+    return result
+}
 
 export default {
-    addStudent
+    addStudent,
+    getAllStudents
 }

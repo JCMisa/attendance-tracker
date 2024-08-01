@@ -35,6 +35,10 @@ module.exports = {
           DEFAULT: "#EEEEEE",
           foreground: "hsl(var(--primary-foreground))",
         },
+        dark: {
+          DEFAULT: "#222831",
+          foreground: "hsl(var(--primary-foreground))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
