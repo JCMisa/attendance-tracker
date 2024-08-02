@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import moment from 'moment'
 import React, { useState } from 'react'
 import { toast } from 'sonner'
-import AttendanceGrid from './_components/attendanceGrid'
+import AttendanceList from './_components/AttendanceList'
 
 const AttendancePage = () => {
     const [selectedMonth, setSelectedMonth] = useState()
@@ -40,20 +40,23 @@ const AttendancePage = () => {
                 Attendance
             </h2>
 
-            <div className='flex gap-4 p-5 my-5 border rounded-lg shadow-sm'>
-                <div className='flex gap-2 items-center'>
-                    <label htmlFor="">Select Month</label>
-                    <MonthSelection selectedMonth={(value) => setSelectedMonth(value)} />
+            <div className='flex flex-col gap-4 p-5 my-5 border rounded-lg shadow-sm'>
+                <div className='flex justify-between items-center'>
+                    <div className='flex gap-2 items-center'>
+                        <label htmlFor="">Select Month</label>
+                        <MonthSelection selectedMonth={(value) => setSelectedMonth(value)} />
+                    </div>
+
+                    <div className='flex gap-2 items-center'>
+                        <label htmlFor="">Select Grade</label>
+                        <GradeSelect selectedGrade={(v) => setSelectedGrade(v)} />
+                    </div>
                 </div>
 
-                <div className='flex gap-2 items-center'>
-                    <label htmlFor="">Select Grade</label>
-                    <GradeSelect selectedGrade={(v) => setSelectedGrade(v)} />
-                </div>
 
                 <Button onClick={onSearchHandler}>Search</Button>
 
-                <AttendanceGrid attendanceList={attendanceList} />
+                <AttendanceList attendanceList={attendanceList} selectedMonth={selectedMonth} />
             </div>
         </div>
     )
