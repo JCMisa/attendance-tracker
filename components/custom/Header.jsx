@@ -18,10 +18,10 @@ const Header = () => {
                         <span className="ml-3 text-xl logo-text">Attendo</span>
                     </a>
                     <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
-                        <a className="mr-5 hover:text-white cursor-pointer">First Link</a>
-                        <a className="mr-5 hover:text-white cursor-pointer">Second Link</a>
-                        <a className="mr-5 hover:text-white cursor-pointer">Third Link</a>
-                        <a className="mr-5 hover:text-white cursor-pointer">Fourth Link</a>
+                        <Link href={'/dashboard'}><p className="mr-5 hover:text-white cursor-pointer">Dashboard</p></Link>
+                        <p className="mr-5 hover:text-white cursor-pointer">Contact</p>
+                        <p className="mr-5 hover:text-white cursor-pointer">How?</p>
+                        <p className="mr-5 hover:text-white cursor-pointer">About</p>
                     </nav>
                     {
                         user ? (
