@@ -6,7 +6,6 @@ const getAllGrades = async () => {
     return result
 }
 
-
 export default {
     getAllGrades
 }

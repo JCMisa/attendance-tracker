@@ -1,4 +1,5 @@
 import {
+    boolean,
     integer,
     numeric,
     pgTable,
@@ -18,4 +19,12 @@ export const STUDENTS = pgTable("students", {
     grade: varchar("grade", { length: 10 }).notNull(),
     address: varchar("address"),
     contact: varchar("contact"),
+})
+
+export const ATTENDANCE = pgTable("attendance", {
+    id: serial("id").primaryKey(),
+    studentId: integer("studentId").notNull(),
+    present: boolean("present").default(false),
+    day: integer("day").notNull(),
+    date: varchar("date").notNull(),
 })

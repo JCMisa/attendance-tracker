@@ -63,7 +63,6 @@ const StudentListTable = ({ studentsList, refreshData }) => {
         { field: "contact", filter: true },
         { field: "action", cellRenderer: CustomButtons },
     ])
-
     const [rowData, setRowData] = useState()
     const [searchInput, setSearchInput] = useState()
 
