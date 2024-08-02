@@ -7,6 +7,8 @@ import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied
 import moment from 'moment';
 import attendanceService from '@/app/_services/attendanceService';
 import { toast } from 'sonner';
+import { getUniqueRecord } from '@/app/_services/getUniqueRecord';
+import { LoaderCircle } from 'lucide-react';
 
 
 const pagination = true;
@@ -14,7 +16,7 @@ const paginationPageSize = 10;
 const paginationPageSizeSelector = [25, 50, 100];
 
 const AttendanceList = ({ attendanceList, selectedMonth }) => {
-    const [rowData, setRowData] = useState()
+    const [rowData, setRowData] = useState([])
     const [colDefs, setColDefs] = useState([
         { field: 'studentId', filter: true },
         { field: 'name', filter: true },
@@ -26,7 +28,7 @@ const AttendanceList = ({ attendanceList, selectedMonth }) => {
 
     useEffect(() => {
         if (attendanceList) {
-            const userList = getUniqueRecord();
+            const userList = getUniqueRecord(attendanceList);
             setRowData(userList);
 
             daysAarray.forEach((date) => {
@@ -46,20 +48,20 @@ const AttendanceList = ({ attendanceList, selectedMonth }) => {
         return result ? true : false
     }
 
-    // get the distinct user
-    const getUniqueRecord = () => {
-        const uniqueRecord = [];
-        const existingUser = new Set();
+    // // get the distinct user
+    // const getUniqueRecord = () => {
+    //     const uniqueRecord = [];
+    //     const existingUser = new Set();
 
-        attendanceList && attendanceList?.forEach(record => {
-            if (!existingUser.has(record.studentId)) {
-                existingUser.add(record.studentId)
-                uniqueRecord.push(record)
-            }
-        });
+    //     attendanceList && attendanceList?.forEach(record => {
+    //         if (!existingUser.has(record.studentId)) {
+    //             existingUser.add(record.studentId)
+    //             uniqueRecord.push(record)
+    //         }
+    //     });
 
-        return uniqueRecord
-    }
+    //     return uniqueRecord
+    // }
 
     const onMarkAttendance = async (day, studentId, presentStatus) => {
         const date = moment(selectedMonth).format('MMM/yyyy')
@@ -110,19 +112,27 @@ const AttendanceList = ({ attendanceList, selectedMonth }) => {
 
     return (
         <div>
-            <div
-                className="ag-theme-quartz-dark" // applying the Data Grid theme
-                style={{ height: 500 }} // the Data Grid will fill the size of the parent container
-            >
-                <AgGridReact
-                    rowData={rowData}
-                    columnDefs={colDefs}
-                    onCellValueChanged={(e) => onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)}
-                    pagination={pagination}
-                    paginationPageSize={paginationPageSize}
-                    paginationPageSizeSelector={paginationPageSizeSelector}
-                />
-            </div>
+            {
+                (rowData.length == 0 || colDefs.length == 0) ? (
+                    <div className="ag-theme-quartz-dark shadow-md bg-secondary rounded-lg border animate-pulse flex items-center justify-center" style={{ height: 500 }} >
+                        <LoaderCircle className='animate-spin' />
+                    </div>
+                ) : (
+                    <div
+                        className="ag-theme-quartz-dark" // applying the Data Grid theme
+                        style={{ height: 500 }} // the Data Grid will fill the size of the parent container
+                    >
+                        <AgGridReact
+                            rowData={rowData}
+                            columnDefs={colDefs}
+                            onCellValueChanged={(e) => onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)}
+                            pagination={pagination}
+                            paginationPageSize={paginationPageSize}
+                            paginationPageSizeSelector={paginationPageSizeSelector}
+                        />
+                    </div>
+                )
+            }
         </div>
     )
 }

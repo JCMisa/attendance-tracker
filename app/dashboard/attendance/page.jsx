@@ -5,7 +5,7 @@ import GradeSelect from '@/components/custom/GradeSelect'
 import MonthSelection from '@/components/custom/MonthSelection'
 import { Button } from '@/components/ui/button'
 import moment from 'moment'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import AttendanceList from './_components/AttendanceList'
 
@@ -13,6 +13,14 @@ const AttendancePage = () => {
     const [selectedMonth, setSelectedMonth] = useState()
     const [selectedGrade, setSelectedGrade] = useState()
     const [attendanceList, setAttendanceList] = useState()
+
+    useEffect(() => {
+        onSearchHandler()
+    }, [selectedGrade])
+
+    useEffect(() => {
+        onSearchHandler()
+    }, [selectedMonth])
 
     const onSearchHandler = async () => {
         console.log(selectedMonth, selectedGrade);
@@ -40,24 +48,24 @@ const AttendancePage = () => {
                 Attendance
             </h2>
 
-            <div className='flex flex-col gap-4 p-5 my-5 border rounded-lg shadow-sm'>
-                <div className='flex justify-between items-center'>
-                    <div className='flex gap-2 items-center'>
-                        <label htmlFor="">Select Month</label>
+            <div className='flex justify-between p-5 my-5 border items-center rounded-lg shadow-sm'>
+                <div className='flex gap-5'>
+                    <div className='flex flex-col gap-2 items-start'>
+                        <label className="text-sm">Select Month</label>
                         <MonthSelection selectedMonth={(value) => setSelectedMonth(value)} />
                     </div>
 
-                    <div className='flex gap-2 items-center'>
-                        <label htmlFor="">Select Grade</label>
+                    <div className='flex flex-col gap-2 items-start'>
+                        <label className="text-sm">Select Year</label>
                         <GradeSelect selectedGrade={(v) => setSelectedGrade(v)} />
                     </div>
                 </div>
 
 
-                <Button onClick={onSearchHandler}>Search</Button>
-
-                <AttendanceList attendanceList={attendanceList} selectedMonth={selectedMonth} />
+                <Button className="min-w-52" onClick={onSearchHandler}>Search</Button>
             </div>
+
+            <AttendanceList attendanceList={attendanceList} selectedMonth={selectedMonth} />
         </div>
     )
 }
