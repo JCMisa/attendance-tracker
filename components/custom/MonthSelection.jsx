@@ -21,7 +21,7 @@ const MonthSelection = ({ selectedMonth }) => {
     return (
         <div>
             <Popover>
-                <PopoverTrigger asChild>
+                <PopoverTrigger asChild className='min-w-40'>
                     <Button variant="outline" className="flex gap-2 items-center text-slate-500 border-primary">
                         <CalendarDays className='h-5 w-5' />
                         {moment(month).format('MMM yyyy')}
