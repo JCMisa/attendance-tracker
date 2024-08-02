@@ -5,12 +5,14 @@ import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import moment from 'moment';
+import attendanceService from '@/app/_services/attendanceService';
+import { toast } from 'sonner';
 
 const AttendanceList = ({ attendanceList, selectedMonth }) => {
     const [rowData, setRowData] = useState()
     const [colDefs, setColDefs] = useState([
-        { field: 'studentId' },
-        { field: 'name' },
+        { field: 'studentId', filter: true },
+        { field: 'name', filter: true },
     ])
 
     const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate()
@@ -54,6 +56,52 @@ const AttendanceList = ({ attendanceList, selectedMonth }) => {
         return uniqueRecord
     }
 
+    const onMarkAttendance = async (day, studentId, presentStatus) => {
+        const date = moment(selectedMonth).format('MMM/yyyy')
+        if (presentStatus) {
+            const data = {
+                day: day,
+                studentId: studentId,
+                present: presentStatus,
+                date: date
+            }
+
+            try {
+                const result = attendanceService.markAttendance(data)
+                if (result) {
+                    toast(
+                        <p className='text-sm font-bold text-green-500'>
+                            Student ID {studentId} marked as present
+                        </p>
+                    )
+                }
+            } catch (error) {
+                toast(
+                    <p className='text-sm font-bold text-red-500'>
+                        Internal error occured while udpdating the record
+                    </p>
+                )
+            }
+        } else {
+            try {
+                const result = attendanceService.markAbsent(studentId, day, date)
+                if (result) {
+                    toast(
+                        <p className='text-sm font-bold text-red-500'>
+                            Student ID {studentId} marked as absent
+                        </p>
+                    )
+                }
+            } catch (error) {
+                toast(
+                    <p className='text-sm font-bold text-red-500'>
+                        Internal error occured while udpdating the record
+                    </p>
+                )
+            }
+        }
+    }
+
 
     return (
         <div>
@@ -64,6 +112,7 @@ const AttendanceList = ({ attendanceList, selectedMonth }) => {
                 <AgGridReact
                     rowData={rowData}
                     columnDefs={colDefs}
+                    onCellValueChanged={(e) => onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)}
                 />
             </div>
         </div>
