@@ -8,6 +8,11 @@ import moment from 'moment';
 import attendanceService from '@/app/_services/attendanceService';
 import { toast } from 'sonner';
 
+
+const pagination = true;
+const paginationPageSize = 10;
+const paginationPageSizeSelector = [25, 50, 100];
+
 const AttendanceList = ({ attendanceList, selectedMonth }) => {
     const [rowData, setRowData] = useState()
     const [colDefs, setColDefs] = useState([
@@ -113,6 +118,9 @@ const AttendanceList = ({ attendanceList, selectedMonth }) => {
                     rowData={rowData}
                     columnDefs={colDefs}
                     onCellValueChanged={(e) => onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)}
+                    pagination={pagination}
+                    paginationPageSize={paginationPageSize}
+                    paginationPageSizeSelector={paginationPageSizeSelector}
                 />
             </div>
         </div>

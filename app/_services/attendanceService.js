@@ -13,9 +13,12 @@ const getAttendanceList = async (grades, month) => {
         attendanceId: ATTENDANCE?.id
     })
         .from(STUDENTS)
-        .leftJoin(ATTENDANCE, eq(STUDENTS?.id, ATTENDANCE?.studentId))
+        .leftJoin(ATTENDANCE,
+            and(
+                eq(STUDENTS?.id, ATTENDANCE?.studentId),
+                eq(ATTENDANCE?.date, month)
+            ))
         .where(eq(STUDENTS?.grade, grades))
-        .where(or(eq(ATTENDANCE?.date, month), isNull(ATTENDANCE?.date)))
 
     return result
 }
