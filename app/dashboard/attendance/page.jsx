@@ -52,12 +52,18 @@ const AttendancePage = () => {
                 <div className='flex gap-5'>
                     <div className='flex flex-col gap-2 items-start'>
                         <label className="text-sm">Select Month</label>
-                        <MonthSelection selectedMonth={(value) => setSelectedMonth(value)} />
+                        <MonthSelection
+                            selectedMonth={selectedMonth}
+                            onMonthChange={(value) => setSelectedMonth(value)}
+                        />
                     </div>
 
                     <div className='flex flex-col gap-2 items-start'>
                         <label className="text-sm">Select Grade Year</label>
-                        <GradeSelect selectedGrade={(v) => setSelectedGrade(v)} />
+                        <GradeSelect
+                            value={selectedGrade}
+                            selectedGrade={(v) => setSelectedGrade(v)}
+                        />
                     </div>
                 </div>
 
