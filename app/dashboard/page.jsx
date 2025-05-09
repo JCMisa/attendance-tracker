@@ -10,18 +10,14 @@ import { toast } from 'sonner'
 import dashboardService from '../_services/dashboardService'
 import BarCharts from './_components/BarCharts'
 import PieCharts from './_components/PieCharts'
+import { Button } from '@/components/ui/button'
 
 const Dashboard = () => {
     const [selectedMonth, setSelectedMonth] = useState()
-    const [selectedGrade, setSelectedGrade] = useState()
+    const [selectedGrade, setSelectedGrade] = useState("1st")
     const [attendanceList, setAttendanceList] = useState()
     const [totalPresentData, setTotalPresentData] = useState([])
     const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        getTotalPresentCountByDay()
-        getStudentAttendance()
-    }, [selectedGrade || selectedMonth])
 
     // useEffect(() => {
     //     getStudentAttendance()
@@ -31,7 +27,7 @@ const Dashboard = () => {
     const getStudentAttendance = async () => {
         try {
             setLoading(true)
-            const result = await attendanceService.getAttendanceList(selectedGrade, moment(selectedMonth).format('MMM/yyyy'))
+            const result = await attendanceService.getAttendanceList(selectedGrade, moment(selectedMonth).format('MMM/YYYY'))
             setAttendanceList(result);
             setLoading(false)
         } catch (error) {
@@ -62,6 +58,13 @@ const Dashboard = () => {
         }
     }
 
+    useEffect(() => {
+        if (selectedGrade && selectedMonth) {
+            getTotalPresentCountByDay()
+            getStudentAttendance()
+        }
+    }, [selectedGrade, selectedMonth])
+
     return (
         <div className="p-7">
             <div className='flex items-center justify-between'>
@@ -72,8 +75,12 @@ const Dashboard = () => {
                         <div className='min-h-16 min-w-64 shadow-md rounded-lg border animate-pulse'></div>
                     ) : (
                         <div className='flex items-center gap-4'>
-                            <MonthSelection selectedMonth={setSelectedMonth} />
-                            <GradeSelect selectedGrade={(v) => setSelectedGrade(v)} />
+                            <MonthSelection selectedMonth={selectedMonth} onMonthChange={(value) => setSelectedMonth(value)} />
+                            <GradeSelect
+                                value={selectedGrade}
+                                selectedGrade={(v) => setSelectedGrade(v)}
+                            />
+                            <Button onClick={() => { getStudentAttendance(); getTotalPresentCountByDay() }}>Refresh</Button>
                         </div>
                     )
                 }

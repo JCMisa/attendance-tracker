@@ -11,7 +11,7 @@ import AttendanceList from './_components/AttendanceList'
 
 const AttendancePage = () => {
     const [selectedMonth, setSelectedMonth] = useState()
-    const [selectedGrade, setSelectedGrade] = useState()
+    const [selectedGrade, setSelectedGrade] = useState("1st")
     const [attendanceList, setAttendanceList] = useState()
 
     useEffect(() => {
@@ -56,7 +56,7 @@ const AttendancePage = () => {
                     </div>
 
                     <div className='flex flex-col gap-2 items-start'>
-                        <label className="text-sm">Select Year</label>
+                        <label className="text-sm">Select Grade Year</label>
                         <GradeSelect selectedGrade={(v) => setSelectedGrade(v)} />
                     </div>
                 </div>
